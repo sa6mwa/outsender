@@ -8,6 +8,7 @@ for f in $*
 do
   # -crf 17 = visually lossless, -6 = double the bitrate
   set -x
-  ffmpeg -i "$f" -r 25 -c:v libx264 -c:a copy -crf 11 -preset medium -tune fastdecode "25fps-$f"
+  #ffmpeg -i "$f" -r 25 -c:v libx264 -c:a copy -crf 17 -preset medium -tune fastdecode "25fps-$f"
+  ffmpeg -i "$f" -r 25 -c:v libx264 -g 50 -bf 2 -c:a aac -b:a 160k -crf 17 -preset medium "25fps-$f.mp4"
   set +x
 done
