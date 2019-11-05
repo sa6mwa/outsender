@@ -5,12 +5,17 @@ ATTACK="0.000001"
 DECAY="0.8"
 ROUND="6"
 SILENCE_BELOW="-30"
+START_COMPRESS_AT="-18"
+COMPRESS_TO="0"
 GAIN="-1"
 INITIAL_ASSUMED_LEVEL="${SILENCE_BELOW}"
 ADJUSTER_DELAY="0.001"
 
-# compand attack1,decay1 soft-knee-dB:in-dB1,out-dB1 gain initial_assumed_signal_level volume_adjuster_delay
-COMPAND="${ATTACK},${DECAY} ${ROUND}:${SILENCE_BELOW},0 ${GAIN} ${INITIAL_ASSUMED_LEVEL} ${ADJUSTER_DELAY}"
+# compand attack1,decay1 soft-knee-dB:in-dB1,in-dB2 gain initial_assumed_signal_level volume_adjuster_delay
+# 2nd parameter, 4 means in-dB1,out-dB1,in-dB2,out-dB2
+# 2nd parameter, 3 means in-dB1,in-dB2,out-dB2 (out-dB1 will be the same as in-dB1, no compression)
+# 2nd parameter, 2 means in-dB1,in-dB2 (out-dBn will be the same as in-dBn)
+COMPAND="${ATTACK},${DECAY} ${ROUND}:${SILENCE_BELOW},${SILENCE_BELOW},${START_COMPRESS_AT},${COMPRESS_TO} ${GAIN} ${INITIAL_ASSUMED_LEVEL} ${ADJUSTER_DELAY}"
 
 if [ $# -lt 1 ]; then
   echo "Usage: $0 wavfile1.wav wavfile2.wav..."
@@ -23,7 +28,7 @@ do
   echo "$f: applying highpass filter"
   sox $f highpass-$f channels 1 gain -n -3 highpass 100
   echo "$f: normalizing"
-  sox --norm=-1 highpass-$f normalized-$f
+  sox --norm=-3 highpass-$f normalized-$f
   rm -f highpass-$f
   echo "$f: applying compression"
   sox normalized-$f compressed-$f compand $COMPAND
