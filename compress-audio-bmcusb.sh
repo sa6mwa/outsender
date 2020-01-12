@@ -1,15 +1,15 @@
 #!/bin/sh
 set -e
 
-ATTACK="0.000001"
+ATTACK="0.00001"
 DECAY="0.8"
 ROUND="6"
-SILENCE_BELOW="-36"
-START_COMPRESS_AT="-24"
+SILENCE_BELOW="-33"
+START_COMPRESS_AT="-30"
 COMPRESS_TO="0"
 GAIN="-1"
 INITIAL_ASSUMED_LEVEL="${SILENCE_BELOW}"
-ADJUSTER_DELAY="0.05"
+ADJUSTER_DELAY="0.001"
 
 # compand attack1,decay1 soft-knee-dB:in-dB1,in-dB2 gain initial_assumed_signal_level volume_adjuster_delay
 # 2nd parameter, 4 means in-dB1,out-dB1,in-dB2,out-dB2
@@ -28,12 +28,7 @@ do
   echo "$f: applying highpass filter"
   #sox $f highpass-$f channels 1 gain -n -3 highpass 100
   sox $f highpass-$f channels 1 highpass 100
-  #echo "$f: normalizing"
-  #sox --norm=-3 highpass-$f normalized-$f
-  #rm -f highpass-$f
   echo "$f: applying compression"
-  #sox normalized-$f compressed-$f compand $COMPAND
   sox highpass-$f compressed-$f compand $COMPAND
-  #rm -f normalized-$f
   rm -f highpass-$f
 done
