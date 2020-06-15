@@ -1,5 +1,7 @@
 #!/bin/bash
 
+SPEED=0.5
+
 if [ $# -lt 1 ]; then
   echo "usage: $0 output_file_name[.mkv]"
   exit 1
@@ -9,7 +11,7 @@ typewriter () {
   foo="$1"
   for (( i=0; i<${#foo}; i++ )); do
     echo -ne "${foo:$i:1}"
-    sleep 0.10
+    sleep $SPEED
   done
 }
 
@@ -20,7 +22,7 @@ twra () {
   printf '\n\e[%sG' ${MOVE}
   for (( i=0; i<${#foo}; i++ )); do
     echo -n "${foo:$i:1}"
-    sleep 0.10
+    sleep $SPEED
   done
 }
 
@@ -38,7 +40,7 @@ twraColor () {
   printf '\n\e[%sG\e[%sm' ${MOVE} $color
   for (( i=0; i<${#foo}; i++ )); do
     echo -n "${foo:$i:1}"
-    sleep 0.10
+    sleep $SPEED
   done
 }
 
@@ -87,8 +89,5 @@ mvBottomRight
 input=$(</dev/stdin)
 
 twraFile LICENSE
-
-#typewriter '    HELLO WORLD'
-#input=$(</dev/stdin)
 
 pkill -P $$
