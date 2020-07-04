@@ -7,6 +7,7 @@ PRESET=superfast
 GOP=50
 BF=2
 ABR=512k
+VF="eq=saturation=1.2,curves=m='0/0 0.5/0.3 1/1'"
 FILTER="-filter_complex compand=attacks=.001:decays=.2:points=-90/-90|-48/-30|-30/-12|-12/-6|-6/-6|0/-3|20/-3:soft-knee=6"
 EXTRA="-tune fastdecode"
 if [ $# -lt 1 ]; then
@@ -20,5 +21,5 @@ set -x
 for f in $*
 do
   OUT="blended-$(basename $f).mp4"
-  ffmpeg -i "$f" -c:v libx264 -g $GOP -bf $BF -c:a aac -b:a $ABR -crf $CRF -preset $PRESET $FILTER $EXTRA "$OUT"
+  ffmpeg -i "$f" -vf "$VF" -c:v libx264 -g $GOP -bf $BF -c:a aac -b:a $ABR -crf $CRF -preset $PRESET $FILTER $EXTRA "$OUT"
 done
