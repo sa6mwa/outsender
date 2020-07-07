@@ -1,14 +1,18 @@
 #!/bin/bash
 # may need libavfilter-extra
 #CRF 23 is the default, 17 is visually lossless, -6 is double the bitrate
-CRF=17
+CRF=18
 # medium (default), fast, faster, veryfaster, superfast, ultrafast
-PRESET=superfast
+PRESET=ultrafast
 GOP=50
 BF=2
 ABR=512k
-VF="eq=saturation=1.2,curves=m='0/0 0.5/0.3 1/1'"
-FILTER="-filter_complex compand=attacks=.001:decays=.2:points=-90/-90|-48/-30|-30/-12|-12/-6|-6/-6|0/-3|20/-3:soft-knee=6"
+VF="eq=saturation=1.5,curves=m='0/0 0.5/0.35 1/1'"
+AFILTER="-filter_complex \
+equalizer=f=12500:width_type=h:width=2000:g=-12,\
+equalizer=f=16000:width_type=h:width=3500:g=-12,\
+equalizer=f=20000:width_type=h:width=4000:g=-36,\
+compand=attacks=.001:decays=.2:points=-90/-90|-48/-30|-30/-12|-12/-6|-6/-6|0/-6|20/-6:soft-knee=6"
 EXTRA="-tune fastdecode"
 if [ $# -lt 1 ]; then
   echo "usage: $0 input1.avi input2.mts ..."
@@ -21,5 +25,5 @@ set -x
 for f in $*
 do
   OUT="blended-$(basename $f).mp4"
-  ffmpeg -i "$f" -vf "$VF" -c:v libx264 -g $GOP -bf $BF -c:a aac -b:a $ABR -crf $CRF -preset $PRESET $FILTER $EXTRA "$OUT"
+  ffmpeg -y -i "$f" -vf "$VF" -c:v libx264 -g $GOP -bf $BF -c:a libfdk_aac -b:a $ABR -crf $CRF -preset $PRESET $AFILTER $EXTRA "$OUT"
 done
