@@ -7,7 +7,7 @@ PRESET=ultrafast
 GOP=50
 BF=2
 ABR=512k
-VF="eq=saturation=1.5,curves=m='0/0 0.5/0.35 1/1'"
+VF="eq=saturation=1.8,curves=m='0/0 0.5/0.3 1/1'"
 AFILTER="-filter_complex \
 equalizer=f=12500:width_type=h:width=2000:g=-12,\
 equalizer=f=16000:width_type=h:width=3500:g=-12,\
@@ -25,5 +25,5 @@ set -x
 for f in $*
 do
   OUT="blended-$(basename $f).mp4"
-  ffmpeg -y -i "$f" -vf "$VF" -c:v libx264 -g $GOP -bf $BF -c:a libfdk_aac -b:a $ABR -crf $CRF -preset $PRESET $AFILTER $EXTRA "$OUT"
+  ffmpeg -y -i "$f" -pix_fmt yuv420p -colorspace bt709 -color_trc bt709 -color_primaries bt709 -color_range tv -vf "$VF" -c:v libx264 -g $GOP -bf $BF -c:a libfdk_aac -b:a $ABR -crf $CRF -preset $PRESET $AFILTER $EXTRA "$OUT"
 done
