@@ -4,7 +4,7 @@
 CRF=17
 # medium (default), fast, faster, veryfaster, superfast, ultrafast
 PRESET=ultrafast
-GOP=50
+GOP=12
 BF=2
 ABR=512k
 VF="eq=saturation=1.6,curves=m='0/0 0.5/0.4 1/1'"

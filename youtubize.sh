@@ -3,7 +3,7 @@
 CRF=19
 # medium (default), fast, faster, veryfaster, superfast, ultrafast
 PRESET=medium
-GOP=50
+GOP=12
 BF=2
 ABR=192k
 EXTRA="-tune film -movflags +faststart"

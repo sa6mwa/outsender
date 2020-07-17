@@ -4,7 +4,7 @@ FPS=25
 CRF=19
 # medium (default), fast, faster, veryfaster, superfast, ultrafast
 PRESET=superfast
-GOP=50
+GOP=12
 BF=2
 EXTRA="-tune fastdecode"
 if [ $# -lt 1 ]; then
