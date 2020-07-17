@@ -7,7 +7,7 @@ PRESET=ultrafast
 GOP=12
 BF=2
 ABR=512k
-VF="eq=saturation=1.6,curves=m='0/0 0.5/0.4 1/1'"
+VF="eq=saturation=1.65,curves=m='0/0 0.5/0.4 1/1'"
 # VF curves at sunset m='0/0 0.5/0.6 1/1'
 AFILTER="-filter_complex \
 equalizer=f=12500:width_type=h:width=2000:g=-12,\
