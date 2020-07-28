@@ -7,7 +7,7 @@ PRESET=ultrafast
 GOP=12
 BF=2
 ABR=384k
-VF="eq=saturation=1.65,curves=m='0/0 0.5/0.4 1/1',removegrain=4,hqdn3d=6"
+VF="eq=saturation=1.65,curves=m='0/0 0.5/0.4 1/1',removegrain=4,hqdn3d"
 # VF curves at sunset m='0/0 0.5/0.6 1/1'
 AFILTER="aresample=async=1,\
 equalizer=f=12500:width_type=h:width=2000:g=-12,\
@@ -19,7 +19,7 @@ if [ $# -lt 1 ]; then
   echo "Intended to transcode 1080p 25fps RockSteady video from DJI Osmo Action"
   echo "for fast editing in Blender."
   echo "Will produce blended-input1.mp4 in current directory."
-  echo "Video is delayed 0.08 seconds (2 frames out of 25) from audio (syncfix)."
+  echo "Video is delayed 0.12 seconds (3 frames of 25) from audio (syncfix)."
   exit
 fi
 set -x
@@ -27,7 +27,7 @@ for f in $*
 do
   bname="$(basename $f)"
   OUT="blended-${bname%.*}.mp4"
-  ffmpeg -y -i "$f" -itsoffset 0.08 -i "$f" -map 0:a -map 1:v \
+  ffmpeg -y -i "$f" -itsoffset 0.12 -i "$f" -map 0:a -map 1:v \
   -r 25 \
   -pix_fmt yuv420p -colorspace bt709 -color_trc bt709 -color_primaries bt709 \
   -color_range tv \
