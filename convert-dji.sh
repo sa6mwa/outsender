@@ -7,14 +7,13 @@ PRESET=ultrafast
 GOP=12
 BF=2
 ABR=384k
-VF="eq=saturation=1.65,curves=m='0/0 0.5/0.35 1/1'"
+VF="eq=saturation=1.65,curves=m='0/0 0.5/0.4 1/1',removegrain=4,hqdn3d=10:8"
 # VF curves at sunset m='0/0 0.5/0.6 1/1'
-AFILTER="-filter_complex \
+AFILTER="aresample=async=1,\
 equalizer=f=12500:width_type=h:width=2000:g=-12,\
 equalizer=f=16000:width_type=h:width=3500:g=-12,\
 equalizer=f=20000:width_type=h:width=4000:g=-36,\
 compand=attacks=.001:decays=.2:points=-90/-90|-48/-30|-30/-12|-12/-6|-6/-6|0/-6|20/-6:soft-knee=6"
-EXTRA="-tune film -video_track_timescale 25000"
 if [ $# -lt 1 ]; then
   echo "usage: $0 input1.avi input2.mts ..."
   echo "intended to render video taken with DJI Osmo Action for fast editing in Blender"
@@ -27,5 +26,12 @@ for f in $*
 do
   bname="$(basename $f)"
   OUT="blended-${bname%.*}.mp4"
-  ffmpeg -y -i "$f" -r 25 -profile:v high -pix_fmt yuv420p -colorspace bt709 -color_trc bt709 -color_primaries bt709 -color_range tv -vf "$VF" -c:v libx264 -g $GOP -bf $BF -c:a libfdk_aac -profile:a aac_low -b:a $ABR -crf $CRF -preset $PRESET $AFILTER $EXTRA "$OUT"
+  ffmpeg -y -i "$f" -r 25 \
+  -pix_fmt yuv420p -colorspace bt709 -color_trc bt709 -color_primaries bt709 \
+  -color_range tv \
+  -vf "$VF" -c:v libx264 -preset $PRESET -profile:v high -g 12 -bf 2 -crf 17 \
+  -filter_complex "$AFILTER" \
+  -c:a libfdk_aac -profile:a aac_low -b:a $ABR \
+  -tune fastdecode -video_track_timescale 25000 \
+  "$OUT"
 done
