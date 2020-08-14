@@ -11,6 +11,7 @@ fi
 -f x11grab -framerate $FPS -video_size 1366x768 \
 -i :0+0,0 -pix_fmt yuv420p \
 -c:v libx264 \
--preset faster \
+-crf 20 \
+-preset veryfast \
 -s 1366x768 \
 $1.mkv

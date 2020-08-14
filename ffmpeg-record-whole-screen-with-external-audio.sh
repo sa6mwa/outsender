@@ -13,7 +13,8 @@ rec -c 1 -b 16 -r 44100 $1.wav &
 -f x11grab -framerate 25 -video_size 1366x768 \
 -i :0+0,0 -pix_fmt yuv420p \
 -c:v libx264 \
--preset faster \
+-preset veryfast \
+-crf 20 \
 -s 1366x768 \
 $1.mkv
 pkill --signal SIGINT -P $$

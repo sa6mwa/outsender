@@ -8,7 +8,8 @@ GOP=12
 BF=2
 ABR=384k
 VF="eq=saturation=1.65,curves=m='0/0 0.5/0.4 1/1',removegrain=4,hqdn3d"
-# VF curves at sunset m='0/0 0.5/0.6 1/1'
+## low light:
+#VF="eq=saturation=1.7:gamma=1.2:contrast=1.1,removegrain=4,hqdn3d"
 AFILTER="aresample=async=1,\
 equalizer=f=12500:width_type=h:width=2000:g=-12,\
 equalizer=f=16000:width_type=h:width=3500:g=-12,\

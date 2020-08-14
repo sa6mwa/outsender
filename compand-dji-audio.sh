@@ -7,6 +7,7 @@ fi
 set -x
 for f in $*
 do
-  OUT="blended-$(basename $f).wav"
+  bname="$(basename $f)"
+  OUT="blended-${bname%.*}.wav"
   ffmpeg -i "$f" -vn -filter_complex 'compand=attacks=.001:decays=.2:points=-90/-90|-48/-30|-30/-12|-12/-6|-6/-6|0/-3|20/-3:soft-knee=6' "$OUT"
 done
