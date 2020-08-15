@@ -1,5 +1,5 @@
 #!/bin/bash
-DELAY=0.5
+DELAY=0.05
 
 if [ $# -lt 1 ]; then
   echo "usage: $0 output_file_name[.mkv]"
@@ -10,7 +10,7 @@ typewriter () {
   foo="$1"
   for (( i=0; i<${#foo}; i++ )); do
     echo -ne "${foo:$i:1}"
-    sleep $DELAY
+    sleep 0.10
   done
 }
 
@@ -21,7 +21,7 @@ twra () {
   printf '\n\e[%sG' ${MOVE}
   for (( i=0; i<${#foo}; i++ )); do
     echo -n "${foo:$i:1}"
-    sleep $DELAY
+    sleep 0.10
   done
 }
 
@@ -39,41 +39,55 @@ twraColor () {
   printf '\n\e[%sG\e[%sm' ${MOVE} $color
   for (( i=0; i<${#foo}; i++ )); do
     echo -n "${foo:$i:1}"
-    sleep $DELAY
+    sleep 0.10
   done
 }
 
 twca () {
   COLUMNS=$(tput cols)
   foo="$1"
-  let MOVE=(${#foo}+${COLUMNS})/2
+  let MOVE=(${COLUMNS}-${#foo})/2+1
   printf '\n\e[%sG' ${MOVE}
   for (( i=0; i<${#foo}; i++ )); do
     echo -ne "${foo:$i:1}"
     sleep $DELAY
   done
 }
+
 twcaFileOneParaPerScreen () {
   ROWS=$(tput lines)
   lc=0
   PARA=""
   while read -u 3 l; do
     if [ ${#l} -lt 1 ]; then
-      let MOVE=(${#lc}+${ROWS})/2
+      clear
+      let MOVE=(${ROWS}-${lc})/2-1
       printf '\e[%sB' ${MOVE}
       while IFS= read -r line; do
-        twca "$line"
+        if [ ${#line} -gt 0 ]; then
+          twca "$line"
+        fi
       done <<< "$PARA"
       PARA=""
       lc=0
       input=$(</dev/stdin)
     else
-      PARA="${PARA}${l}\n"
-      let lc=$lc+1
+      PARA="${PARA}${l}"$'\n'
+      let lc=${lc}+1
     fi
   done 3<$1
+  if [ $lc -gt 0 ]; then
+    clear
+    let MOVE=(${ROWS}-${lc})/2-1
+    printf '\e[%sB' ${MOVE}
+    while IFS= read -r line; do
+      if [ ${#line} -gt 0 ]; then
+        twca "$line"
+      fi
+    done <<< "$PARA"
+    input=$(</dev/stdin)
+  fi
 }
-
 
 mvBottomRight () {
   LINES=$(tput lines)
@@ -107,18 +121,22 @@ twraFileColor () {
 }
 
 # $1-$(date +%y%m%d%H%M%S).mkv
+# 1366x768
 /usr/bin/ffmpeg -loglevel 8 \
--f x11grab -framerate 25 -video_size 1366x768 \
+-f x11grab -framerate 25 -video_size 1024x768 \
 -i :0+0,0+nomouse -pix_fmt yuv420p \
 -c:v libx264 \
--preset fast \
--s 1366x768 \
+-preset faster \
+-crf 19 \
+-s 1024x768 \
 $1.mkv &
 
-clear
-mvBottomRight
-input=$(</dev/stdin)
 
-twraFile LICENSE
+
+clear
+input=$(</dev/stdin)
+twcaFileOneParaPerScreen credz
+
+#input=$(</dev/stdin)
 
 pkill -P $$
