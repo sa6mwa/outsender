@@ -1,8 +1,8 @@
 #!/bin/bash
 #CRF 23 is the default, 17-18 is visually lossless, -6 is double the bitrate
-CRF=20
+CRF=19
 # medium (default), fast, faster, veryfaster, superfast, ultrafast
-PRESET=slow
+PRESET=medium
 GOP=12
 BF=2
 ABR=384k
@@ -21,7 +21,7 @@ do
   ffmpeg -y -i "$f" -r 25 \
   -pix_fmt yuv420p \
   -colorspace bt709 -color_trc bt709 -color_primaries bt709 -color_range tv \
-  -c:v libx264 -profile:v high -crf 20 -g $GOP -bf $BF \
+  -c:v libx264 -profile:v high -crf $CRF -g $GOP -bf $BF \
   -preset $PRESET \
   -coder 1 -movflags +faststart -x264-params open-gop=0 \
   -c:a libfdk_aac -profile:a aac_low -b:a $ABR \

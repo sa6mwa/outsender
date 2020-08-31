@@ -6,7 +6,6 @@ CRF=19
 PRESET=superfast
 GOP=12
 BF=2
-ABR=384k
 if [ $# -lt 1 ]; then
   echo "usage: $0 input1.avi input2.mts ..."
   echo "will produce ${FPS}fps-input1.mp4 and ${FPS}fps-input2.mp4"
@@ -26,11 +25,7 @@ do
   -profile:v high \
   -g $GOP \
   -bf $BF \
-  -filter_complex "aresample=async=1" \
-  -vsync 1 \
-  -c:a libfdk_aac \
-  -profile:a aac_low \
-  -b:a $ABR \
+  -an \
   -crf $CRF \
   -tune fastdecode \
   "$OUT"

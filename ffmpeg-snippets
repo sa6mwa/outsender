@@ -1,0 +1,18 @@
+# add 7.2s black intro (and cut 10s from start of desktop01.mkv which had bad
+# timecode in the beginning
+
+ffmpeg -ss 10 -i desktop01.mkv -f lavfi -i "color=c=black:s=1366x768" -filter_complex '[0:v]setpts=PTS-STARTPTS[main];[1:v]trim=end=7.2,setpts=PTS-STARTPTS[pre];[pre][main]concat=n=2:v=1:a=0[out]' -map '[out]' -an -c:v libx264 -preset ultrafast -crf 23 -profile:v high -g 12 -bf 2 -vsync 1 desktop01-corrected.mkv
+
+
+# circular overlay upper right corner
+ffmpeg -i main.mkv -i facecloseup.mkv \
+ -filter_complex "[1]trim=end_frame=1,
+  geq='st(3,pow(X-(W/2),2)+pow(Y-(H/2),2));if(lte(ld(3),pow(min(W/2,H/2),2)),255,0)':128:128,
+  loop=-1:1,setpts=N/FRAME_RATE/TB[mask];
+  [1][mask]alphamerge[cutout];
+  [0][cutout]overlay=x=W-w:y=0[v];
+  [0][1]amix=2[a]"
+ -map "[v]" -map "[a]" out.mp4
+
+
+

@@ -7,9 +7,9 @@ PRESET=ultrafast
 GOP=12
 BF=2
 ABR=384k
-VF="hqdn3d"
+VF="eq=saturation=1.65,curves=m='0/0 0.5/0.4 1/1',removegrain=4,hqdn3d"
 ## low light:
-#VF="gamma=1.2:contrast=1.1,hqdn3d"
+#VF="eq=saturation=1.7:gamma=1.2:contrast=1.1,removegrain=4,hqdn3d"
 AFILTER="aresample=async=1,\
 equalizer=f=12500:width_type=h:width=2000:g=-12,\
 equalizer=f=16000:width_type=h:width=3500:g=-12,\
@@ -32,7 +32,7 @@ do
   -r 25 \
   -pix_fmt yuv420p -colorspace bt709 -color_trc bt709 -color_primaries bt709 \
   -color_range tv \
-  -vf "$VF" -c:v libx264 -preset $PRESET -profile:v high -g $GOP -bf $BF -crf $CRF \
+  -vf "$VF" -c:v libx264 -preset $PRESET -profile:v high -g 12 -bf 2 -crf 17 \
   -filter_complex "$AFILTER" \
   -c:a libfdk_aac -profile:a aac_low -b:a $ABR \
   -tune fastdecode -video_track_timescale 25000 \
