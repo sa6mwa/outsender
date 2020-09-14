@@ -15,4 +15,14 @@ ffmpeg -i main.mkv -i facecloseup.mkv \
  -map "[v]" -map "[a]" out.mp4
 
 
+# circular mask, 100 pixel radius (replace 100 with H/2 or something to get a full size circle)
+
+ffmpeg -f lavfi -i color=color=red:size=480x270,format=yuva420p,\
+geq=lum='p(X,Y)':a='if(lte(hypot(X-(W/2),Y-(H/2)),100),255,0)' \
+-i map.mp4 \
+-filter_complex "[0]alphaextract[a];[1]scale=480:270[b];[b][a]alphamerge" \
+-t 5 -c:v libvpx-vp9 -speed 4 -pix_fmt yuva420p maskedmap.webm
+
+# qtrle is much faster
+ffmpeg -f lavfi -i "color=color=red:size=640x360,format=yuva420p,geq=lum='p(X,Y)':a='if(lte(hypot(X-(W/2)+50,Y-(H/2)),H/2),255,0)'" -i out.mkv -filter_complex "[0]alphaextract[a];[1]scale=640:360[b];[b][a]alphamerge" -c:v qtrle -an masked.mov
 
