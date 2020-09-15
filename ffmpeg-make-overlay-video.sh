@@ -9,10 +9,12 @@ for f in $*
 do
   bname="$(basename $f)"
   OUT="${bname%.*}-overlay.mov"
-  ffmpeg -y -f lavfi \
-  -i "color=color=red:size=640x360,format=yuva420p,geq=lum='p(X,Y)':a='if(lte(hypot(X-(W/2)+50,Y-(H/2)),H/2),255,0)'" \
+  ffmpeg -y \
   -i "$f" \
-  -filter_complex "[0]alphaextract[a];[1]scale=640:360[b];[b][a]alphamerge" \
-  -c:v png -pix_fmt yuva420p -an \
+  -loop 1 \
+  -i mask.png \
+  -i greenborder.png \
+  -filter_complex "[1]alphaextract[a];[0]scale=640:360[b];[b][a]alphamerge[bg];[bg][2]overlay=0:0" \
+  -c:v png -pix_fmt rgba -an \
   "$OUT"
 done
