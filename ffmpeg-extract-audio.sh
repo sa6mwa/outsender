@@ -6,5 +6,7 @@ fi
 set -x
 for f in $*
 do
-  ffmpeg -i "$f" -vn "$f-audio.wav"
+  bname="$(basename $f)"
+  OUT="${bname%.*}-audio.wav"
+  ffmpeg -i "$f" -vn "$OUT"
 done

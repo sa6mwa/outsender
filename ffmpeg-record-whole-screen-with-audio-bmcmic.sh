@@ -3,8 +3,8 @@
 FPS=25
 DESKTOPAUDIODEV="alsa_output.pci-0000_00_1b.0.analog-stereo.monitor"
 #DESKTOPAUDIODEV="alsa_output.usb-0d8c_C-Media_USB_Headphone_Set-00.analog-stereo.monitor"
-MICROPHONEDEV="alsa_input.usb-0d8c_C-Media_USB_Headphone_Set-00.analog-mono"
-#MICROPHONEDEV="alsa_input.usb-USB_Microphone_USB_Microphone-00.analog-stereo"
+#MICROPHONEDEV="alsa_input.usb-0d8c_C-Media_USB_Headphone_Set-00.analog-mono"
+MICROPHONEDEV="alsa_input.usb-USB_Microphone_USB_Microphone-00.analog-stereo"
 #MICROPHONEDEV="alsa_input.usb-ZOOM_Corporation_H1_000000000000-00.analog-stereo"
 
 
@@ -22,11 +22,10 @@ ffmpeg \
 -f pulse -i "$DESKTOPAUDIODEV" \
 -f pulse -i "$MICROPHONEDEV" \
 -filter_complex "\
-[1:a]aresample=async=1,volume=0.9[outa1];\
-[2:a]highpass=f=80,\
-equalizer=f=8000:t=q:w=1:g=+12,\
-equalizer=f=200:t=q:w=1:g=-6,\
-compand=attacks=.001:decays=.1:points=-90/-90|-24/-12|-12/-6|-6/-3|-3/-3/0/-3|20/-3:soft-knee=6,\
+[1:a]aresample=async=1,volume=0.8[outa1];\
+[2:a]channelsplit=channel_layout=stereo:channels=FL[left];\
+[left]highpass=f=80,\
+compand=attacks=.001:decays=.1:points=-90/-90|-24/-6|-6/-3|0/-3|20/-3:soft-knee=6,\
 aresample=async=1[outa2];\
 [outa1][outa2]amix=inputs=2,aresample=async=1[outa]" \
 -preset ultrafast \

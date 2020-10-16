@@ -20,15 +20,8 @@ fi
 ffmpeg \
 -thread_queue_size 1024 -f x11grab -framerate $FPS -video_size 1366x768 -i :0+0,0 \
 -f pulse -i "$DESKTOPAUDIODEV" \
--f pulse -i "$MICROPHONEDEV" \
 -filter_complex "\
-[1:a]aresample=async=1,volume=0.9[outa1];\
-[2:a]highpass=f=80,\
-equalizer=f=8000:t=q:w=1:g=+12,\
-equalizer=f=200:t=q:w=1:g=-6,\
-compand=attacks=.001:decays=.1:points=-90/-90|-24/-12|-12/-6|-6/-3|-3/-3/0/-3|20/-3:soft-knee=6,\
-aresample=async=1[outa2];\
-[outa1][outa2]amix=inputs=2,aresample=async=1[outa]" \
+[1:a]aresample=async=1[outa]" \
 -preset ultrafast \
 -crf 23 \
 -pix_fmt yuv420p \
