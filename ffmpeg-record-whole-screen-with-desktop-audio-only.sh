@@ -29,6 +29,7 @@ ffmpeg \
 -map 0:v -map '[outa]' \
 -vsync 1 \
 -c:v libx264 \
--c:a:0 libmp3lame -ac:a:0 2 -ar:a:0 44100 -b:a:0 128k \
+-c:a:0 pcm_s16le \
 $1.mkv
-#ffmpeg -i $1.mkv -map 0:2 -c:a copy $1.mp3
+#-c:a:0 libmp3lame -ac:a:0 2 -ar:a:0 44100 -b:a:0 128k \
+#$1.mkv

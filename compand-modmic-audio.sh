@@ -5,7 +5,7 @@ FILTER="\
 highpass=f=80,\
 equalizer=f=8000:t=q:w=1:g=+12,\
 equalizer=f=200:t=q:w=1:g=-6,\
-compand=attacks=.001:decays=.1:points=-90/-90|-24/-12|-12/-6|-6/-3|-3/-3/0/-3|20/-3:soft-knee=6"
+compand=attacks=.001:decays=.1:points=-90/-90|-24/-6|-6/-3|-3/-3|0/-3|20/-3"
 
 if [ $# -lt 1 ]; then
   echo "usage: $0 input.wav [input.mp3] [input.aac] ..."

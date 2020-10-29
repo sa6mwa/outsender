@@ -26,7 +26,7 @@ ffmpeg \
 [2:a]highpass=f=80,\
 equalizer=f=8000:t=q:w=1:g=+12,\
 equalizer=f=200:t=q:w=1:g=-6,\
-compand=attacks=.001:decays=.1:points=-90/-90|-24/-12|-12/-6|-6/-3|-3/-3/0/-3|20/-3:soft-knee=6,\
+compand=attacks=.001:decays=.1:points=-90/-90|-24/-6|-6/-3|-3/-3|0/-3|20/-3,\
 aresample=async=1[outa2];\
 [outa1][outa2]amix=inputs=2,aresample=async=1[outa]" \
 -preset ultrafast \
@@ -36,6 +36,7 @@ aresample=async=1[outa2];\
 -map 0:v -map '[outa]' \
 -vsync 1 \
 -c:v libx264 \
--c:a:0 libmp3lame -ac:a:0 2 -ar:a:0 44100 -b:a:0 128k \
+-c:a:0 pcm_s16le \
 $1.mkv
-#ffmpeg -i $1.mkv -map 0:2 -c:a copy $1.mp3
+#-c:a:0 libmp3lame -ac:a:0 2 -ar:a:0 44100 -b:a:0 128k \
+#$1.mkv
