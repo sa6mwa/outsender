@@ -36,7 +36,8 @@ aresample=async=1[outa2];\
 -map 0:v -map '[outa]' \
 -vsync 1 \
 -c:v libx264 \
--c:a:0 pcm_s16le \
+-c:a:0 libmp3lame -ac:a:0 2 -ar:a:0 44100 -b:a:0 128k \
 $1.mkv
-#-c:a:0 libmp3lame -ac:a:0 2 -ar:a:0 44100 -b:a:0 128k \
+## my box appear to be too slow for pcm
+#-c:a:0 pcm_s16le \
 #$1.mkv
