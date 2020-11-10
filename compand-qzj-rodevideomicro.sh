@@ -10,7 +10,12 @@ do
   bname="$(basename $f)"
   OUT="companded-${bname%.*}.wav"
   ffmpeg -i "$f" -vn -ac 1 -filter_complex "\
-highpass=f=100,\
-compand=attacks=.0005:decays=.1:points=-90/-90|-27/-9|-9/-6|-6/-3|-3/-3|0/-3|20/-3:soft-knee=6" \
+highpass=f=60,\
+equalizer=f=350:t=q:w=2:g=-3,\
+equalizer=f=4000:t=q:w=2:g=-6,\
+equalizer=f=12000:t=q:w=2:g=+9,\
+compand=attacks=.0003:decays=.1:points=-90/-90|-30/-9|-9/-6|-6/-6|0/-6|20/-6:soft-knee=6"  \
 "$OUT"
 done
+
+# afftdn=nt=w:nr=12
