@@ -18,7 +18,7 @@ set -x
 for f in $*
 do
   bname="$(basename $f)"
-  for x in 192 256 320
+  for x in 192 320
   do
     OUT="${bname%.*}-${x}kb.mp3"
     lame -b ${x} \
