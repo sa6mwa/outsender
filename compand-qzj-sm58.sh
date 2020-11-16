@@ -17,6 +17,6 @@ equalizer=f=100:t=q:w=1:g=3,\
 equalizer=f=340:t=q:w=1:g=-3,\
 equalizer=f=1700:t=q:w=1:g=-3,\
 equalizer=f=12000:t=q:w=0.5:g=3,\
-compand=attacks=.0003:decays=.2:points=-90/-200|-70/-90|-60/-60|-34/-10|0/-3:soft-knee=6" \
+compand=attacks=.0003:decays=.2:points=-90/-900|-80/-90|-50/-50|-30/-10|0/-3|20/-3:soft-knee=3" \
 "$OUT"
 done

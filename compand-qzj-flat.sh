@@ -12,8 +12,6 @@ do
   ffmpeg -i "$f" -vn -ac 1 -filter_complex "\
 deesser,\
 highpass=f=100,\
-equalizer=f=300:t=q:w=1:g=-6,\
-equalizer=f=12000:t=q:w=2:g=3,\
 compand=attacks=.0003:decays=.2:points=-90/-900|-80/-90|-50/-50|-30/-11|0/-3|20/-3:soft-knee=3" \
 "$OUT"
 done
