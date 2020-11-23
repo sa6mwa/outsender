@@ -9,12 +9,13 @@ for f in $*
 do
   bname="$(basename $f)"
   OUT="companded-${bname%.*}.wav"
-  ffmpeg -i "$f" -vn -ac 1 -filter_complex "\
+  ffmpeg -y -i "$f" -vn -ac 2 -filter_complex "\
+pan=stereo|c0<.5*c0+.5*c1|c1<.5*c0+.5*c1,\
 deesser,\
 highpass=f=100,\
 equalizer=f=300:t=q:w=1:g=-6,\
-equalizer=f=12000:t=q:w=2:g=3,\
-compand=attacks=.0003:decays=.2:points=-90/-900|-80/-90|-50/-50|-30/-11|0/-3|20/-3:soft-knee=3" \
+equalizer=f=12000:t=q:w=2:g=2,\
+compand=attacks=.0001:decays=.2:points=-90/-900|-80/-90|-50/-50|-30/-9|-2/-2|0/-2|20/-2:soft-knee=3" \
 "$OUT"
 done
 

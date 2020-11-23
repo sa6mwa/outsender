@@ -9,8 +9,10 @@ for f in $*
 do
   bname="$(basename $f)"
   OUT="companded-${bname%.*}.wav"
-  ffmpeg -i "$f" -vn -ac 1 -filter_complex "\
-highpass=f=60,\
-compand=attacks=.0005:decays=.1:points=-90/-90|-27/-9|-9/-6|-6/-3|-3/-3|0/-3|20/-3:soft-knee=6" \
+  ffmpeg -i "$f" -vn -ac 2 -filter_complex "\
+pan=stereo|c0<.5*c0+.5*c1|c1<.5*c0+.5*c1,\
+deesser,\
+highpass=f=80,\
+compand=attacks=.0001:decays=.2:points=-90/-900|-80/-90|-50/-50|-30/-9|-2/-2|0/-2|20/-2:soft-knee=3" \
 "$OUT"
 done
