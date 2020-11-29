@@ -19,10 +19,22 @@ and other artifacts (which `fdk_aac` does not). In the repository
 
 ```
 sudo apt-get install gphoto2 v4l2loopback-utils v4l2loopback-dkms
+echo 'alias dslr-webcam v4l2loopback' | sudo tee -a /etc/modprobe.d/dslr-webcam.conf
+echo 'options v4l2loopback exclusive_caps=1 max_buffers=2' | sudo tee -a /etc/modprobe.d/dslr-webcam.conf
+echo dslr-webcam | sudo tee -a /etc/modules
+sudo modprobe dslr-webcam
+gphoto2 --auto-detect
+gphoto2 --stdout --capture-movie | ffmpeg -i - -vcodec rawvideo -pix_fmt yuv420p -colorspace bt709 -threads 0 -f v4l2 /dev/video0
+```
+
+## Step-by-step
+
+```
+sudo apt-get install gphoto2 v4l2loopback-utils v4l2loopback-dkms
 sudo vim /etc/modprobe.d/dslr-webcam.conf
 ```
 
-Add the following to new file /etc/modprobe.d/dslr-webcam.conf:
+Add the following to new file `/etc/modprobe.d/dslr-webcam.conf`:
 
 ```
 # exclusive_caps=1 enables exclusive capture mode, only CAPTURE/OUTPUT, which is what we want.
@@ -51,23 +63,69 @@ dslr-webcam
 ```
 
 Reboot to confirm this gets loaded at your next boot. When the machine is up
-again, connect your camera to via the USB port with the supplied USB cable
-(there is a short USB cable supplied with the Nikon D5300 VR kit).
+again, connect your camera via the USB port with the supplied USB cable (there
+is a short USB cable supplied with the Nikon D5300 VR kit).
 
 Before testing the camera, unmount the USB disk otherwise you won't be able to
 capture video. Then...
 
 ```
-gphoto2 --auto-detect
+$ gphoto2 --auto-detect
+Model                          Port
+----------------------------------------------------------
+Nikon DSC D5300                usb:006,004
 ```
 
 See if you can capture some video from the device...
 
 ```
-gphoto2 --stdout --capture-movie | ffmpeg -i - -vcodec rawvideo -pix_fmt yuv420p -threads 0 -f v4l2 /dev/video0
+gphoto2 --stdout --capture-movie | ffmpeg -i - -vcodec rawvideo -pix_fmt yuv420p -colorspace bt709 -threads 0 -f v4l2 /dev/video0
 ```
 
-The command above need to run in order to be able to capture anything from the
-camera. The stream is available on `/dev/video0` which is what you use in OBS
-Studio or any other streaming or capture software.
+If you have multiple devices in the `--auto-detect` output you can specify which camera to use by it's port, e.g...
 
+```
+gphoto2 --stdout --capture-movie --port usb:006,004 | ffmpeg -i - -vcodec rawvideo -pix_fmt yuv420p -colorspace bt709 -threads 0 -f v4l2 /dev/video0
+```
+
+The command above need to run (in the background or in a separate
+session/terminal) in order to be able to capture anything from the camera. The
+stream is available on `/dev/video0` which is what you use in OBS Studio or any
+other streaming or capture software as an input source. The pixel format and
+the colorspace has been changed from the original mjpeg stream, if you don't
+like that you see you can first remove `-colorspace bt709`, then `-pix_fmt
+yuv420p`.  The streaming software will most likely output a format suitable for
+your platform. `yuv420p` and `bt709` (RGB) is a common recommended format for
+e.g YouTube.
+
+## Caveat
+
+The problem with the live view on Nikon cameras (or at least on the D5300) is
+that the resolution is only 640x424 pixels. You can not get any higher
+resolution than this. The reason is that the only image feed available from the
+USB interface is the live view/preview feature in mjpeg format, not the actual
+video feed. You need a HDMI to USB interface for higher resolution. 640x424
+will be fine as webcam or as picture-in-picture for presentations or streaming.
+
+## The mjpeg stream on Nikon D5300
+
+The mjpeg streaming coming out of the live preview is 640x424, pix_fmt is
+yuvj422p, and colorspace is bt470bg.  `color_primaries` is unknown. `bt470bg`
+is PAL by the way, `smpte170m` is NTSC. You can see the details of the stream
+using the following command...
+
+```
+gphoto2 --stdout --capture-movie | ffprobe -i - -v error -show_streams | less
+```
+
+## Extend the auto-off live preview timeout
+
+Default live view timeout is 10 minutes. When the camera shuts off the stream
+will temporarily stop. `gphoto2` seem to be able to wake up the camera again
+and the stream continues, but it freezes for a couple of seconds. You can
+extend the timeout to 30 minutes, but not turn it off entirely.  On the camera,
+enter `Menu`, `Custom Settings Menu` (the pencil), `c Timers/AE lock`, `c2 Auto
+off timers`, `Custom`, `Live view` (press the right arrow), choose `30 min`.
+You should be able to prevent the live view from turning off after 30 minutes
+by pressing something like the `+/-` exposure key near the shutter periodically
+to reset the timer.
