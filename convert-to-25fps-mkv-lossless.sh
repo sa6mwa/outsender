@@ -6,18 +6,18 @@ CRF=10
 PRESET=superfast
 GOP=12
 BF=2
-ABR=160k
 EXTRA="-tune fastdecode"
 if [ $# -lt 1 ]; then
   echo "usage: $0 input1.avi input2.mts ..."
-  echo "will produce ${FPS}fps-input1.avi.mp4 and ${FPS}fps-input2.mts.mp4"
+  echo "will produce ${FPS}fps-input1.mkv and ${FPS}fps-input2.mkv"
   echo "in the current directory"
   exit
 fi
 for f in $*
 do
-  OUT="${FPS}fps-$(basename $f).mp4"
+  bname="$(basename $f)"
+  OUT="${FPS}fps-${bname%.*}.mkv"
   set -x
-  ffmpeg -i "$f" -r $FPS -c:v libx264 -g $GOP -bf $BF -c:a aac -b:a $ABR -crf $CRF -preset $PRESET $EXTRA "$OUT"
+  ffmpeg -i "$f" -r $FPS -c:v libx264 -g $GOP -bf $BF -crf $CRF -c:a pcm_s16le -preset $PRESET $EXTRA "$OUT"
   set +x
 done

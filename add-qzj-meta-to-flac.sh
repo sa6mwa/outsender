@@ -35,9 +35,23 @@ t+=("005 Eftersnack QZJ003")
 d+=("Extramaterial för medlemmar på patreon.com/outsender. Jag rättar mig själv och reder ut begreppen robusthet och motståndskraft (resilience) i komplexa system enligt Dr Richard Cook, m.fl samt tänker högt angående min ambition att föra in Uppdragstaktik i IT-branschen. Lite om hur man skulle kunnat anpassa RAKEL fort att fungera under skogsbränder även när man inte har basstationer (signlister och att vara snabb genom OODA-loopen). Avslutas med vad nästa avsnitt ska handla om: 7S.
 https://www.youtube.com/watch?v=2S0k12uZR14")
 
+t+=("006 HNY Introduktion till Morsekod")
+d+=("En liten introduktion till CW samt Morse-kod och framför allt lite tips utifrån mina misstag hur man kan gå tillväga för att lära sig Morse-kod samt hur lång tid man kan förvänta sig att det tar.
+Länkar:
+https://www.ditdit.fm/shows/episode-31-cw-traffic-nets
+https://qninewsletterdotnet.files.wordpress.com/2015/11/qni-2014-4.pdf
+https://www.arrl.org/files/file/Public%20Service/ARES/Cascadia%20Rising%202016%20-%20Final%20Report.pdf
+https://www.patreon.com/outsender")
+
+t+=("007 Morsealfabetet")
+d+=("Övningsmaterial med alfabetet A till Ö samt siffror 0 till 9 enligt International/Continental Morse Code.")
+
+t+=("008 Genomgång av CW QSO och förkortningar")
+d+=("
+")
 
 if [ $# -lt 2 ]; then
-  echo "usage: $0 TRACKNUMBER_IN_META_ARRAY podcast.wav [input.avi] [etc.mov] ..." >&2
+  echo "usage: $0 TRACKNUMBER_IN_META_ARRAY podcast.flac [input2.flac] ..." >&2
   exit
 fi
 if ! [[ $1 =~ ^[0-9]+$ ]]; then
