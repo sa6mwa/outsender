@@ -11,12 +11,11 @@ VF="hqdn3d"
 ## low light:
 #VF="gamma=1.2:contrast=1.1,hqdn3d"
 AFILTER="aresample=async=1,\
-equalizer=f=90:t=o:w=1:g=2,\
-equalizer=f=125:t=o:w=.5:g=3,\
-equalizer=f=300:t=o:w=.5:g=-5,\
-equalizer=f=325:t=o:w=.5:g=-4,\
 highpass=f=80,\
 lowpass=f=12000,\
+equalizer=f=90:t=o:w=1:g=1,\
+equalizer=f=125:t=o:w=.5:g=1,\
+equalizer=f=300:t=o:w=.5:g=-3,\
 compand=attacks=.001:decays=.3:points=-90/-90|-48/-30|-30/-9|0/-3|20/-3:soft-knee=12,\
 alimiter=limit=0.7943282347242815:level=disabled"
 if [ $# -lt 1 ]; then
@@ -43,3 +42,11 @@ do
   "$OUT"
 done
 #-c:a libfdk_aac -profile:a aac_low -b:a $ABR
+
+## older filter_complex
+#highpass=f=80,\
+#lowpass=f=12000,\
+#equalizer=f=90:t=o:w=1:g=2,\
+#equalizer=f=125:t=o:w=.5:g=3,\
+#equalizer=f=300:t=o:w=.5:g=-5,\
+#equalizer=f=325:t=o:w=.5:g=-4,\
