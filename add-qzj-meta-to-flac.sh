@@ -46,9 +46,18 @@ https://www.patreon.com/outsender")
 t+=("007 Morsealfabetet")
 d+=("Övningsmaterial med alfabetet A till Ö samt siffror 0 till 9 enligt International/Continental Morse Code.")
 
-t+=("008 Genomgång av CW QSO och förkortningar")
-d+=("
-")
+t+=("008 Genomgång CW QSO och förkortningar")
+d+=("Avsnittet går igenom formatet på ett lagom långt CW QSO och vad flertalet av trafikförkortningarna man kommer i kontakt med betyder. Liknande format och förkortningar återfinns även i RTTY och PSK31 QSOn. Många av trafikförkortningarna och Q-koderna används även inom militär signalering både på CW och via RTTY.
+Tillägg: QRL? frågas om frekvensen är ledig, eller snarare om frekvensen är upptagen. Får man QRL tillbaka (utan fråegetecken) så är frekvensen upptagen (QRL = Jag är upptagen, QRL? = Är du upptagen?).
+https://www.patreon.com/outsender")
+
+t+=("009 Utesändaren blickar bakåt och framåt")
+d+=("En tillbakablick vad som hänt sen YouTube-kanalen Utesändaren introducerades och även bakgrunden till beslutet att starta kanalen. Jag blickar även framåt och presenterar hur upplägget kan tänkas bli framöver. Avsnittet spretar åt olika håll och utlovar en hel del episk musik (från videvo.net).
+https://www.youtube.com/c/utesandaren
+Lästips och en referens bland många till innehållet:
+https://ieeexplore.ieee.org/document/9250315
+Stöd QZJ och Utesändaren på:
+https://www.patreon.com/outsender")
 
 if [ $# -lt 2 ]; then
   echo "usage: $0 TRACKNUMBER_IN_META_ARRAY podcast.flac [input2.flac] ..." >&2
