@@ -1,7 +1,7 @@
 #!/bin/bash
 FPS=25
 #CRF 23 is the default, 17 is visually lossless, -6 is double the bitrate
-CRF=19
+CRF=17
 # medium (default), fast, faster, veryfaster, superfast, ultrafast
 PRESET=superfast
 GOP=12

@@ -29,9 +29,10 @@ fi
 set -x
 for f in $*
 do
+  ## itsoffset of 0.08 == 2 frames at 25 fps, 0.04 == 1 frame
   bname="$(basename $f)"
   OUT="blended-${bname%.*}.mkv"
-  ffmpeg -y -i "$f" -itsoffset 0.12 -i "$f" -map 0:a -map 1:v \
+  ffmpeg -y -i "$f" -itsoffset 0.08 -i "$f" -map 0:a -map 1:v \
   -r 25 \
   -pix_fmt yuv420p -colorspace bt709 -color_trc bt709 -color_primaries bt709 \
   -color_range tv \

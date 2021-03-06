@@ -17,8 +17,10 @@ fi
 ## may be useful...
 # sudo systemctl stop thermald
 
+# video size was 1366x768
+
 ffmpeg \
--thread_queue_size 1024 -f x11grab -framerate $FPS -video_size 1366x768 -i :0+0,0 \
+-thread_queue_size 1024 -f x11grab -framerate $FPS -video_size 1920x1080 -i :0+0,0 \
 -f pulse -i "$DESKTOPAUDIODEV" \
 -f pulse -i "$MICROPHONEDEV" \
 -filter_complex "\
@@ -32,7 +34,7 @@ aresample=async=1[outa2];\
 -preset ultrafast \
 -crf 23 \
 -pix_fmt yuv420p \
--s 1366x768 \
+-s 1920x1080 \
 -map 0:v -map '[outa]' \
 -vsync 1 \
 -c:v libx264 \

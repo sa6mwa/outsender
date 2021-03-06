@@ -1,7 +1,7 @@
 #!/bin/bash
 album="QZJ"
 artist="SA6MWA"
-year="2020"
+year="$(date +%Y)"
 genre="Podcast"
 comment="www.patreon.com/outsender"
 coverfront="$HOME/podcast/artwork/qzj-1600x1600-1mib.jpeg"
@@ -56,6 +56,16 @@ d+=("En tillbakablick vad som hänt sen YouTube-kanalen Utesändaren introducera
 https://www.youtube.com/c/utesandaren
 Lästips och en referens bland många till innehållet:
 https://ieeexplore.ieee.org/document/9250315
+Stöd QZJ och Utesändaren på:
+https://www.patreon.com/outsender")
+
+t+=("010 HF Non-Cooperative Target Recognition (HFNCTR)")
+d+=("Detta är avsnitt 97 av Utesändaren, men som podcast och handlar om RÖS - röjande strålning samt huruvida man är ett samarbetsvilligt respektive icke samarbetsvilligt mål. Avsnittet behandlar hur kortvåg är resilient mot pejling och utstörning, men bara om man samtidigt tar hänsyn till dess sårbarheter och att därmed inte vara ett samarbetsvilligt mål.
+https://www.youtube.com/c/utesandaren
+https://youtu.be/CsXpRmljY94
+https://youtu.be/JZEoqFP4xHQ
+https://ieeexplore.ieee.org/document/9250315
+https://www.ausa.org/articles/russia-gives-lessons-electronic-warfare
 Stöd QZJ och Utesändaren på:
 https://www.patreon.com/outsender")
 
