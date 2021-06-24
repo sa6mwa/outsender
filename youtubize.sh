@@ -24,7 +24,7 @@ do
   prevfs=$(stat --printf="%s" $f)
   count=5
   echo "Waiting until $f has the same file size for at least 10 seconds before continuing..."
-  while (( count >= 0 )) ; do
+  while (( count > 0 )) ; do
     sleep 2
     fs=$(stat --printf="%s" $f)
     if (( fs == prevfs )) ; then
