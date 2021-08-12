@@ -4,7 +4,7 @@ artist="SA6MWA"
 year="$(date +%Y)"
 genre="Podcast"
 comment="www.patreon.com/outsender"
-coverfront="$HOME/podcast/artwork/qzj-1600x1600-1mib.jpeg"
+coverfront="$HOME/qzj/artwork/qzj-1600x1600-1mib.jpeg"
 
 t=()
 d=()
@@ -68,6 +68,18 @@ https://ieeexplore.ieee.org/document/9250315
 https://www.ausa.org/articles/russia-gives-lessons-electronic-warfare
 Stöd QZJ och Utesändaren på:
 https://www.patreon.com/outsender")
+
+t+=("011")
+d+=("Description for eleven")
+
+t+=("012 Scrum och Uppdragstaktik")
+d+=("Off-topic, fast relevant för den som kan komma att arbeta som signalist i t.ex en stab. Avsnitt 12 handlar om min åsikt att Scrum och Agile har sitt ursprung i ledarskapsfilosofin Uppdragstaktik, dvs Auftragstaktik, Führen mit Auftrag. Jag går igenom var Uppdragstaktik kommer ifrån och vad det är samt min syn på under vilken gemensam värdegrund det fungerar allra bäst. Därtill introducerar jag dig till överste John Boyd och OODA-loopen samt Boyd's ramverk Organizational Climate For Operational Success. Näst sist går jag igenom hela ramverket Scrum och hur det fungerar rent praktiskt. Allra sist redogör jag för hur vår familj förverkligar semesterplanerna med hjälp av Scrum där semestern är uppdelad i 10 så kallade sprintar.
+
+Stöd QZJ och Utesändaren på:
+https://www.patreon.com/outsender
+
+Länk nämnd i avsnittet:
+https://kkrva.se/forsvarsmakten-och-uppdragstaktiken/")
 
 if [ $# -lt 2 ]; then
   echo "usage: $0 TRACKNUMBER_IN_META_ARRAY podcast.flac [input2.flac] ..." >&2
