@@ -69,8 +69,10 @@ https://www.ausa.org/articles/russia-gives-lessons-electronic-warfare
 Stöd QZJ och Utesändaren på:
 https://www.patreon.com/outsender")
 
-t+=("011")
-d+=("Description for eleven")
+t+=("011 Så lär du dig Morsekod")
+d+=("I detta avsnitt tar jag upp några tips om hur man lämpligen lär sig telegrafi med Morsekod vare sig det är som blivande signalmatros, radioamatör, signalspanare, radiotelegrafist eller helt vanlig nörd. Syftet med avsnittet är att belysa problemen med de många snabbfix-metoder som bl.a florerar på YouTube. Dessa metoder hävdar att du lär dig telegrafera på 15 minuter och annat trams. Jag har flera år av träning bakom mig för att nå den hastighet jag klarar av idag och delar med mig av mina erfarenheter samt inom radioamatörhobbyn vedertagna metoder för att komma upp i användbar hastighet.
+Stöd QZJ och Utesändaren på:
+https://www.patreon.com/outsender")
 
 t+=("012 Scrum och Uppdragstaktik")
 d+=("Off-topic, fast relevant för den som kan komma att arbeta som signalist i t.ex en stab. Avsnitt 12 handlar om min åsikt att Scrum och Agile har sitt ursprung i ledarskapsfilosofin Uppdragstaktik, dvs Auftragstaktik, Führen mit Auftrag. Jag går igenom var Uppdragstaktik kommer ifrån och vad det är samt min syn på under vilken gemensam värdegrund det fungerar allra bäst. Därtill introducerar jag dig till överste John Boyd och OODA-loopen samt Boyd's ramverk Organizational Climate For Operational Success. Näst sist går jag igenom hela ramverket Scrum och hur det fungerar rent praktiskt. Allra sist redogör jag för hur vår familj förverkligar semesterplanerna med hjälp av Scrum där semestern är uppdelad i 10 så kallade sprintar.
@@ -80,6 +82,36 @@ https://www.patreon.com/outsender
 
 Länk nämnd i avsnittet:
 https://kkrva.se/forsvarsmakten-och-uppdragstaktiken/")
+
+t+=("013 Normaltaktikens nya kläder")
+d+=("Om avsnitt 12 kort handlade om vad som är uppdragstaktik enligt dess tyska förlaga Auftragstaktik så handlar detta avsnitt om vad som inte är uppdragstaktik samt vad som inte är agilitet inom IT-världen i samma avsnitt. Jag ramar in avsnittet runt en artikel av överstelöjtnant Ola Palmquist - chef för Taktikavdelningen vid Markstridsskolan - med titeln Uppdragstaktik, en svensk papperstiger?
+
+Referenser:
+https://kkrva.se/uppdragstaktik-en-svensk-papperstiger/
+https://kkrva.se/tillbaka-till-framtiden/
+https://www.armyupress.army.mil/Portals/7/combat-studies-institute/csi-books/Sonnenberger_Book.pdf
+
+Annat:
+https://youtu.be/0pYf_odrgLE
+https://ryansydnor.com/blog/certain-to-win/
+https://youtube.com/playlist?list=PL4pmLxkc7CTcukIlpD0UThT7Y_K09oxXe
+")
+
+t+=("014 Arke")
+d+=("Hur kommunicerar man i ockuperat område mellan motståndsrörelsen, det som finns kvar av landets försvar och en exil-regering? Det är frågor som projekt Arke ämnar sysselsätta sig med och detta avsnittet presenterar dess bakgrund och varför det har fått namnet Arke.
+
+Lästips...
+Der Totale Widerstand / Total Resistance:
+https://en.wikipedia.org/wiki/Total_Resistance_(book)
+https://www.adlibris.com/se/bok/total-resistance-9781607963042
+
+Referenser återfinns i följande inlägg:
+https://www.patreon.com/posts/projekt-arke-56989898
+https://www.patreon.com/posts/arke-framat-57208191
+
+Stöd QZJ och Utesändaren på:
+https://www.patreon.com/outsender
+")
 
 if [ $# -lt 2 ]; then
   echo "usage: $0 TRACKNUMBER_IN_META_ARRAY podcast.flac [input2.flac] ..." >&2
