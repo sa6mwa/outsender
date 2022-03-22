@@ -113,6 +113,15 @@ Stöd QZJ och Utesändaren på:
 https://www.patreon.com/outsender
 ")
 
+t+=("015 Planering Under Tidspress")
+d+=("Grundläggande om metoden Planering Under Tidspress (PUT) av Peter Thunholm, originalet Recognitional Planning Model (RPM) samt Recognition-primed Decision Model (RPD) av Gary Klein och John F Schmitt.
+
+Planering kan vara frustrerande och man vill bara ut och verkställa, men även de mest ivriga praktikerna inser att planering behövs. För oss som hatar långa planeringsmöten och planer som aldrig håller i verkligheten så är det fantastiskt att Planering Under Tidspress finns. Detta avsnittet går kortfattat igenom metoden, dess värde och underförstått varför Svenska Försvarsmakten använder metoden nästan uteslutande från åtminstone bataljon och nedåt - den är helt enkelt grym för otåliga taktiker. Jag utgår ifrån ett mer generellt tillämpningsperspektiv och menar att metoden går att utnyttja i all verksamhet man vill planera.
+
+Stöd QZJ Utesändaren på Patreon:
+https://www.patreon.com/outsender
+")
+
 if [ $# -lt 2 ]; then
   echo "usage: $0 TRACKNUMBER_IN_META_ARRAY podcast.flac [input2.flac] ..." >&2
   exit
