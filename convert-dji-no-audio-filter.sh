@@ -29,7 +29,6 @@ do
   -color_range tv \
   -vf "$VF" -c:v libx264 -preset $PRESET -profile:v high -g $GOP -bf $BF -crf $CRF \
   -tune fastdecode -video_track_timescale 25000 \
-  -filter_complex "$AFILTER" \
   -c:a pcm_s16le \
   "$OUT"
 done
