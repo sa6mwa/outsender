@@ -13,8 +13,9 @@ set -xe
 
 if [ ! -d ffmpeg_source ]; then
   mkdir ffmpeg_source
-  cd ffmpeg_source
 fi
+
+cd ffmpeg_source
 
 sudo apt-get update -qq
 sudo apt-get install \
