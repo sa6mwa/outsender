@@ -11,7 +11,7 @@ fi
 ## left justify 4:3 video, one pillar box at right
 # -filter:v 'pad=ih*16/9:ih:0:(oh-ih)'
 
-/usr/bin/ffmpeg \
+ffmpeg \
 -f x11grab -framerate $FPS -video_size 1024x768 \
 -i :0+0,0 -pix_fmt yuv420p \
 -c:v libx264 \

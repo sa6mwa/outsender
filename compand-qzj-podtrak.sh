@@ -3,10 +3,8 @@
 if [ $# -lt 1 ]; then
   echo "Usage: $0 input.wav [input.mp3] [input.aac] ..."
   echo ""
-  echo "The settings should allow you to have a background stereo track (like music)"
-  echo "below -10 dB. Minus 10.01 dB in fraction is 0.3158639048423471 or 0.31586 if"
-  echo "you can not fit all figures, this should produce a mix without clipping, just"
-  echo "make sure you lower the music to this fraction when the vocal track is on."
+  echo "This script is intended for a Podtrak MIC wav file with the Rode pod"
+  echo "microphone, compand and limit the peak to -2 dB."
   exit
 fi
 set -x
